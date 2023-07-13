@@ -1,85 +1,85 @@
-import React, {useState, useEffect, useMemo, useCallback} from 'react'
-import NavigationBar from '../../components/NavBar/NavigationBar'
-import Post from '../../components/ShortPost/ShortPost'
-import db from '../../utils/db.json'
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import NavigationBar from "../../components/NavBar/NavigationBar";
+import Post from "../../components/ShortPost/ShortPost";
+import db from "../../utils/db.json";
 function MostLikedPost() {
   let whichSort = useMemo(
     () =>
-      window.location.pathname.split('/')[1] === 'MostLikedPost'
-        ? 'numLikes'
-        : 'numComments',
+      window.location.pathname.split("/")[1] === "MostLikedPost"
+        ? "numLikes"
+        : "numComments",
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [window.location.pathname],
-  )
+    [window.location.pathname]
+  );
 
-  const [posts, setPosts] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   // const [whichSort , setWhichSort] = useState()
 
   //quick sort    time complexity  O(n*logn)
   const swap = useCallback((items, leftIndex, rightIndex) => {
-    var temp = items[leftIndex]
-    items[leftIndex] = items[rightIndex]
-    items[rightIndex] = temp
-  }, [])
+    var temp = items[leftIndex];
+    items[leftIndex] = items[rightIndex];
+    items[rightIndex] = temp;
+  }, []);
 
   const partition = useCallback(
     (items, left, right) => {
       var pivot = items[Math.floor((right + left) / 2)], //middle element
         i = left, //left pointer
-        j = right //right pointer
+        j = right; //right pointer
       while (i <= j) {
         while (items[i][whichSort] < pivot[whichSort]) {
-          i++
+          i++;
         }
         while (items[j][whichSort] > pivot[whichSort]) {
-          j--
+          j--;
         }
         if (i <= j) {
-          swap(items, i, j) //swap two elements
-          i++
-          j--
+          swap(items, i, j); //swap two elements
+          i++;
+          j--;
         }
       }
-      return i
+      return i;
     },
-    [swap, whichSort],
-  )
+    [swap, whichSort]
+  );
 
   const quickSort = useCallback(
     (items, left, right) => {
-      var index
+      var index;
       if (items.length > 1) {
-        index = partition(items, left, right) //index returned from partition
+        index = partition(items, left, right); //index returned from partition
         if (left < index - 1) {
           //more elements on the left side of the pivot
-          quickSort(items, left, index - 1)
+          quickSort(items, left, index - 1);
         }
         if (index < right) {
           //more elements on the right side of the pivot
-          quickSort(items, index, right)
+          quickSort(items, index, right);
         }
       }
-      return items
+      return items;
     },
-    [partition],
-  )
+    [partition]
+  );
 
   // end of quick sort
   const fetchPost = useCallback(() => {
-    let data = db.posts
+    let data = db.posts;
 
-    let result = quickSort(data, 0, data.length - 1)
+    let result = quickSort(data, 0, data.length - 1);
 
-    data = result.reverse().slice(0, 10)
+    data = result.reverse().slice(0, 10);
     // console.log(data)
-    setIsLoading(false)
-    setPosts([...data])
-  }, [quickSort])
+    setIsLoading(false);
+    setPosts([...data]);
+  }, [quickSort]);
 
   useEffect(() => {
-    fetchPost()
-  }, [fetchPost, whichSort])
+    fetchPost();
+  }, [fetchPost, whichSort]);
 
   return (
     <div>
@@ -88,7 +88,7 @@ function MostLikedPost() {
           {isLoading ? (
             <h1 className="text-center">Loading... Please Wait....</h1>
           ) : (
-            posts.map(post => (
+            posts.map((post) => (
               <Post
                 key={post.id}
                 title={post.title}
@@ -111,7 +111,7 @@ function MostLikedPost() {
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
-export default MostLikedPost
+export default MostLikedPost;

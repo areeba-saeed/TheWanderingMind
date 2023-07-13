@@ -1,32 +1,49 @@
-import React, {useState, useEffect, useCallback} from 'react'
-import './PostPage.css'
-import db from '../../utils/db.json'
+import React, { useEffect } from "react";
+import "./PostPage.css";
+import DOMPurify from "dompurify";
 
-function PostCard(props) {
-  const [authorName, setauthorName] = useState('')
+function PostCard({ data }) {
+  const imgageUrl = `https://the-wandering-mind-57dc8d77c813.herokuapp.com/api/blogs/images/${data.image}`;
+  const userUrl = `https://the-wandering-mind-57dc8d77c813.herokuapp.com/api/user/images/${data.user.image}`;
 
-  const fetchData = useCallback(() => {
-    const user = db.authors[props.authorId]
-
-    setauthorName(user.firstName + ' ' + user.lastName)
-  }, [props.authorId])
-
-  useEffect(() => {
-    fetchData()
-  }, [fetchData])
+  const sanitizedDescription = DOMPurify.sanitize(data.description);
 
   return (
-    <div className="card w-100">
-      <h1>{props.title}</h1>
-      <div className=" p-5 ">
-        <div className="mainContent mx-auto">{props.description}</div>
-      </div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}>
+      <h1>{data.name}</h1>
       <p className="title text-secondary">
-        Date : {new Date(props.date).toLocaleDateString()}
+        Date: {new Date(data.createdAt).toLocaleDateString()}
       </p>
-      <p>Author : {authorName}</p>
-      <p>LIKES : {props.numLikes}</p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}>
+        Author :{" "}
+        <img
+          src={userUrl}
+          alt="..."
+          width={20}
+          height={20}
+          style={{ borderRadius: "50%", marginLeft: 10, marginRight: 5 }}
+        />
+        <p> {data.user.name}</p>
+      </div>
+      <img src={imgageUrl} alt="..." width="60%" />
+
+      <div>
+        <div className="mainContent mx-auto">
+          <div
+            dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+            className="sanitizedDescription"></div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
-export default PostCard
+export default PostCard;
