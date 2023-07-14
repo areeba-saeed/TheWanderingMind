@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./PostPage.css";
 import DOMPurify from "dompurify";
+import { Link } from "react-router-dom";
 
 function PostCard({ data }) {
   const imgageUrl = `https://the-wandering-mind-57dc8d77c813.herokuapp.com/api/blogs/images/${data.image}`;
@@ -23,16 +24,21 @@ function PostCard({ data }) {
         style={{
           display: "flex",
           justifyContent: "center",
+          marginBottom: 10,
         }}>
         Author :{" "}
-        <img
-          src={userUrl}
-          alt="..."
-          width={20}
-          height={20}
-          style={{ borderRadius: "50%", marginLeft: 10, marginRight: 5 }}
-        />
-        <p> {data.user.name}</p>
+        <Link
+          to={`/author/${data.user._id}`}
+          style={{ fontSize: 20, color: "black" }}>
+          <img
+            src={userUrl}
+            alt="..."
+            width={30}
+            height={30}
+            style={{ borderRadius: "50%", marginLeft: 10, marginRight: 5 }}
+          />
+          {data.user.name}
+        </Link>
       </div>
       <img src={imgageUrl} alt="..." width="60%" />
 

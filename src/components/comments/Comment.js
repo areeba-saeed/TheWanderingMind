@@ -4,7 +4,7 @@ function Comment({ data }) {
   return (
     <li className="media p-4">
       <div style={{ display: "flex", alignItems: "center" }}>
-        <Link to={`/Profile/${data.user._id}`}>
+        <Link to={`/author/${data.user._id}`}>
           <img
             src={`https://the-wandering-mind-57dc8d77c813.herokuapp.com/api/user/images/${data.user.image}`}
             className="mr-3 text-center"
