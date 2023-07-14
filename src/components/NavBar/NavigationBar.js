@@ -68,7 +68,7 @@ function NavigationBar() {
         expand="md">
         <NavItem>
           <Link to="/" className="text-white">
-            TheWanderingMind.com
+            The Wandering Mind
           </Link>
         </NavItem>
         <NavbarToggler onClick={toggle} style={{ width: "auto" }} />
