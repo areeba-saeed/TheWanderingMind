@@ -1,5 +1,5 @@
 
-# React Blog Website.
+# Mern Blog Website.
 
 ### live webiste at :- https://the-wandering-mind.vercel.app/
 backend: https://github.com/areeba-saeed/TheWanderingMindBackend
