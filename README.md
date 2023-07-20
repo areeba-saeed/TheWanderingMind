@@ -1,7 +1,8 @@
 
 # React Blog Website.
 
-### live webiste at :- https://react-blog-website.vercel.app/
+### live webiste at :- https://the-wandering-mind.vercel.app/
+backend: https://github.com/areeba-saeed/TheWanderingMindBackend
 
 ## concepts Are Used :
 
