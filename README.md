@@ -17,9 +17,8 @@ backend: https://github.com/areeba-saeed/TheWanderingMindBackend
   
 
  - git clone REPO_URL
- - cd react-blog-website
- - yarn
- - yarn start
+ - cd TheWanderingMind
+ - npm start
 
 
 ## Request
