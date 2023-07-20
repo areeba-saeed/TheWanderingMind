@@ -21,7 +21,6 @@ backend: https://github.com/areeba-saeed/TheWanderingMindBackend
  - yarn
  - yarn start
 
-**NOTE** : If you stuck then contact me on LinkedIn (https://in.linkedin.com/in/mohit-sojitra)
 
 ## Request
 
@@ -30,5 +29,4 @@ backend: https://github.com/areeba-saeed/TheWanderingMindBackend
  - If You have suggestion or want new feature the feel free to **create an issue with label features**.
 
 
-#### If you like project then feel free to give Star 😅
 
